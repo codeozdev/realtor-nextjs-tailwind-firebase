@@ -17,3 +17,6 @@ const [showPassword, setShowPassword] = useState(false)
 />
 )}
 ```
+
+# Sayfa Bilgisi
+- Register ile SignUp sayfasina gidiyoruz
