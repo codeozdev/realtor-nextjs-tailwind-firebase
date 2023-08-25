@@ -15,9 +15,9 @@ export default function ForgotPassword() {
 
   return (
     <PaddingContainer>
-      <section className='my-5 sm:mt-36 overflow-hidden px-4'>
+      <section className='my-5 sm:mt-32 overflow-hidden px-4'>
         <h1 className='text-3xl text-center font-bold mb-4  sm:mb-10'>Forgot Password</h1>
-        <div className='grid grid-cols-1 sm:grid-cols-2 h-1/2 gap-10'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-10'>
           <div>
             <Image
               src='https://images.unsplash.com/flagged/photo-1564767609342-620cb19b2357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2573&q=80'
