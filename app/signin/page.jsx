@@ -6,6 +6,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
+
+//firebase
+import { signInUser } from '@/firebase/firebase'
 
 const formData = {
   email: '',
@@ -13,14 +18,39 @@ const formData = {
 }
 
 export default function SignInPage() {
+  const router = useRouter()
+
   const [form, setForm] = useState(formData)
   const [showPassword, setShowPassword] = useState(false)
+
+  const resetFormFields = () => {
+    setForm(formData)
+  }
 
   const { email, password } = form
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm({ ...form, [name]: value })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      await signInUser(email, password)
+      toast.success('Sign in was successful')
+      resetFormFields()
+      router.push('/')
+    } catch (error) {
+      if (error.code === 'auth/wrong-password') {
+        toast.error('Wrong password')
+      } else if (error.code === 'auth/user-not-found') {
+        toast.error('User not found')
+      } else {
+        toast.error('Something went wrong')
+      }
+    }
   }
 
   return (
@@ -38,7 +68,7 @@ export default function SignInPage() {
             />
           </div>
           <div className='flex items-center sm:p-5'>
-            <form className='w-full space-y-3 relative'>
+            <form className='w-full space-y-3 relative' onSubmit={handleSubmit}>
               <input
                 type='email'
                 placeholder='Email adress'
