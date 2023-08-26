@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   GoogleAuthProvider,
   signInWithPopup,
 } from 'firebase/auth'
@@ -46,6 +47,13 @@ export const signInUser = async (email, password) => {
   if (!email || !password) return
 
   return await signInWithEmailAndPassword(auth, email, password)
+}
+
+// Reset password
+export const resetPassword = async (email) => {
+  if (!email) return
+
+  return await sendPasswordResetEmail(auth, email)
 }
 
 // FIRESTORE

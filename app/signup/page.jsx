@@ -49,7 +49,6 @@ export default function SignUpPage() {
       router.push('/')
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        //email already in use hatasi
         toast.error('email already in use')
       } else if (error.code === 'auth/weak-password') {
         toast.error('password should be at least 6 characters')

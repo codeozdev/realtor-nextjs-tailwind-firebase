@@ -5,12 +5,31 @@ import PaddingContainer from '@/components/layout/padding-container'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
+
+//firebase
+import { resetPassword } from '@/firebase/firebase'
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('')
 
   const handleChange = (e) => {
     setEmail(e.target.value)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      await resetPassword(email)
+      toast.success('Reset password email was sent')
+    } catch (error) {
+      if (error.code === 'auth/user-not-found') {
+        toast.error('User not found')
+      } else {
+        toast.error('Something went wrong')
+      }
+    }
   }
 
   return (
@@ -28,7 +47,7 @@ export default function ForgotPassword() {
             />
           </div>
           <div className='flex items-center sm:p-5'>
-            <form className='w-full space-y-3 relative'>
+            <form className='w-full space-y-3 relative' onSubmit={handleSubmit}>
               <input
                 type='email'
                 placeholder='Email adress'
