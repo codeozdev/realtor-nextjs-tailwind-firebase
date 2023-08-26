@@ -1,5 +1,11 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -15,6 +21,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 
 export const auth = getAuth(app)
+
+// Google sign in
+const provider = new GoogleAuthProvider()
+export const signInGooglePopup = () => signInWithPopup(auth, provider)
 
 // Create user
 export const createUser = async (email, password) => {
@@ -39,13 +49,14 @@ export const createUserDocument = async (user) => {
   const userDocRef = doc(db, 'users', user.uid)
 
   const userDocSnapShot = await getDoc(userDocRef)
-//   console.log(userDocSnapShot.exists())
+  //   console.log(userDocSnapShot.exists())
 
+  // Check if user document exists
   if (!userDocSnapShot.exists()) {
     const { displayName, email } = user
     const createdAt = new Date()
 
-    //create user document
+    //create user document || document kisminda bulunacak data verileri
     try {
       await setDoc(userDocRef, {
         displayName,

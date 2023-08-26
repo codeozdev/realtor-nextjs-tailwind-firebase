@@ -33,6 +33,7 @@ export const updateUser = async (user, fullName) => {
 - kullanimi cok basit sanirim her sayfada gorusun diye navigation icine koyduk
 - kullanmak istedigimiz component icerisine {toast} alip direk kullanabiliyoruz
 - success || error diyerek mesaj bildiriminin rengini degistiriyoruz
+- toast kullanabilmek icin sanirim try-catch yapisi gerekiyor
 
 
 ```jsx
